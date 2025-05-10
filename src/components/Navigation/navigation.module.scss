@@ -1,0 +1,78 @@
+@use "../../styles/variables" as *;
+
+.navigation {
+	position: relative;
+
+	&-menu {
+		background-color: $color-light;
+		box-shadow: 0 0 10px $color-darck-opacity;
+		border: 1px solid $color-darck-opacity;
+		width: calc(100vw - 12px);
+		right: 0;
+		top: 60px;
+		position: absolute;
+		padding: $size-m;
+		border-radius: $size-xs;
+
+		&-link {
+			position: relative;
+			display: flex;
+			font-size: 16px;
+			gap: $size-s;
+			align-items: end;
+      margin-bottom: $size-xxl;
+			transition: all 0.3s;
+
+			svg {
+				transition: all 0.3s;
+			}
+
+			&-active {
+				color: $color-accent-hover;
+				font-weight: 600;
+
+				svg {
+					stroke: $color-accent-hover;
+				}
+			}
+		}
+
+		&-link::after {
+			content: "";
+			position: absolute;
+			height: 1px;
+			width: 0;
+			background-color: $color-accent-hover;
+			left: 0;
+			bottom: -10px;
+			transition: width 0.3s;
+		}
+
+		&-link:hover {
+			color: $color-accent-hover;
+
+			svg {
+				stroke: $color-accent-hover;
+			}
+		}
+
+		&-link:hover::after {
+			width: 100%;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.navigation {
+		position: relative;
+
+		&-menu {
+			width: 325px;
+			height: 200px;
+
+			right: 0;
+			top: 60px;
+			position: absolute;
+		}
+	}
+}

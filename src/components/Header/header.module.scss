@@ -1,0 +1,45 @@
+@use "../../styles/variables" as *;
+
+.header {
+	border-bottom: 1px solid $color-darck-opacity;
+	margin-bottom: $size-l;
+	display: flex;
+	flex-direction: column;
+
+	&-action {
+		display: flex;
+		gap: $size-m;
+		justify-content: space-between;
+		padding: $size-l 0;
+	}
+
+	&-logo {
+		display: flex;
+		order: 1;
+		gap: $size-m;
+		padding: $size-s 0;
+		border-top: 1px solid $color-darck-opacity;
+		justify-content: center;
+
+		img {
+			width: 50px;
+		}
+
+		h1 {
+			font-size: $size-xl;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.header {
+		display: flex;
+		justify-content: space-between;
+    flex-direction: row;
+
+		&-logo {
+      order: 0;
+			border: none;
+		}
+	}
+}
