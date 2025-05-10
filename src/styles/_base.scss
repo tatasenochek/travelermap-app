@@ -1,0 +1,24 @@
+@use "variables" as *;
+
+* {
+	font-family: $font-main;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: $color-darck;
+}
+
+h1,
+h2,
+h3 {
+	font-family: $font-heading;
+	font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  padding: $size-xs;
+}
