@@ -1,10 +1,7 @@
+import Router from "../router/Router";
+
 function App() {
-	return (
-		<main>
-			<h1>Карта путешественника</h1>
-			<p>Карта путешественника</p>
-		</main>
-	);
+	return <Router/>;
 }
 
 export default App;
