@@ -1,78 +1,69 @@
 @use "../../styles/variables" as *;
 
-.navigation {
-	position: relative;
+.menuContainer {
+	width: 40px;
+	height: 40px;
+	background: $color-accent-hover;
+	cursor: pointer;
+	border: 1px solid $color-accent-hover;
+	border-radius: $size-xs;
 
-	&-menu {
-		background-color: $color-light;
-		box-shadow: 0 0 10px $color-darck-opacity;
-		border: 1px solid $color-darck-opacity;
-		width: calc(100vw - 12px);
-		right: 0;
-		top: 60px;
-		position: absolute;
-		padding: $size-m;
-		border-radius: $size-xs;
-
-		&-link {
-			position: relative;
-			display: flex;
-			font-size: 16px;
-			gap: $size-s;
-			align-items: end;
-      margin-bottom: $size-xxl;
-			transition: all 0.3s;
-
-			svg {
-				transition: all 0.3s;
-			}
-
-			&-active {
-				color: $color-accent-hover;
-				font-weight: 600;
-
-				svg {
-					stroke: $color-accent-hover;
-				}
-			}
-		}
-
-		&-link::after {
-			content: "";
-			position: absolute;
-			height: 1px;
-			width: 0;
-			background-color: $color-accent-hover;
-			left: 0;
-			bottom: -10px;
-			transition: width 0.3s;
-		}
-
-		&-link:hover {
-			color: $color-accent-hover;
-
-			svg {
-				stroke: $color-accent-hover;
-			}
-		}
-
-		&-link:hover::after {
-			width: 100%;
-		}
+	svg {
+		stroke: $color-light;
 	}
 }
 
-@media (min-width: 768px) {
-	.navigation {
-		position: relative;
+.menuItems {
+	background-color: $color-light;
+	box-shadow: 0 0 10px $color-darck-opacity;
+	border: 1px solid $color-darck-opacity;
+	width: calc(100vw - 12px);
+	right: $size-xs;
+	top: 85px;
+	position: absolute;
+	padding: $size-m;
+	border-radius: $size-xs;
 
-		&-menu {
-			width: 325px;
-			height: 200px;
+	@media (min-width: 767px) {
+		width: 325px;
+	}
+}
 
-			right: 0;
-			top: 60px;
-			position: absolute;
-		}
+.menuItem {
+	position: relative;
+	display: flex;
+	font-size: 16px;
+	gap: $size-s;
+	align-items: flex-end;
+	margin-bottom: $size-xxl;
+	transition: all 0.3s;
+	color: inherit;
+	text-decoration: none;
+
+	svg {
+		transition: all 0.3s;
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		height: 1px;
+		width: 0;
+		background-color: $color-accent-hover;
+		left: 0;
+		bottom: -10px;
+		transition: width 0.3s;
+	}
+}
+
+.menuItem:hover {
+	color: $color-accent-hover;
+
+	svg {
+		stroke: $color-accent-hover;
+	}
+
+	&::after {
+		width: 100%;
 	}
 }

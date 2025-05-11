@@ -1,70 +1,45 @@
-import { useState } from "react";
-import Button from "../Button/Button";
-import { MapPinHouse, MapPinPlus, Menu, UserRound, X } from "lucide-react";
+import { MapPinHouse, MapPinPlus, MenuIcon, UserRound } from "lucide-react";
 import styles from "./navigation.module.scss";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ROUTES } from "../../router/ROUTES";
-import clsx from "clsx";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 const Navigation = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(true);
-
-  const handleVisibleModal = () => {
-    setIsVisible(!isVisible);
-  }
 	return (
-		<nav className={styles.navigation} aria-label="Основное меню">
-			<Button style="icon" onClick={handleVisibleModal}>
-				{isVisible ? <Menu /> : <X />}
-			</Button>
-			<nav hidden={isVisible} className={styles.navigationMenu}>
-				<NavLink
+		<Menu as="nav" aria-label="Основное меню">
+			<MenuButton className={styles.menuContainer}>
+				<MenuIcon />
+			</MenuButton>
+			<MenuItems className={styles.menuItems}>
+				<MenuItem
+					as={Link}
 					to={ROUTES.HOME}
 					aria-label="Главная страница"
-					onClick={handleVisibleModal}
-					className={({ isActive }) =>
-						clsx(
-							styles.navigationMenuLink,
-							isActive && styles.navigationMenuLinkActive
-						)
-					}
-					end
+					className={styles.menuItem}
 				>
 					<MapPinHouse size={20} />
 					Главная страница
-				</NavLink>
-				<NavLink
+				</MenuItem>
+				<MenuItem
+					as={Link}
 					to={ROUTES.ADD_PLACE}
 					aria-label="Добавить место"
-					onClick={handleVisibleModal}
-					className={({ isActive }) =>
-						clsx(
-							styles.navigationMenuLink,
-							isActive && styles.navigationMenuLinkActive
-						)
-					}
-					end
+					className={styles.menuItem}
 				>
 					<MapPinPlus size={20} />
 					Добавить место
-				</NavLink>
-				<NavLink
+				</MenuItem>
+				<MenuItem
+					as={Link}
 					to={ROUTES.PERSONAL_ACCOUNT}
 					aria-label="Личный кабинет"
-					onClick={handleVisibleModal}
-					className={({ isActive }) =>
-						clsx(
-							styles.navigationMenuLink,
-							isActive && styles.navigationMenuLinkActive
-						)
-					}
-					end
+					className={styles.menuItem}
 				>
 					<UserRound size={20} />
 					Личный кабинет
-				</NavLink>
-			</nav>
-		</nav>
+				</MenuItem>
+			</MenuItems>
+		</Menu>
 	);
 };
 
