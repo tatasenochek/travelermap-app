@@ -6,7 +6,6 @@
 	background: $color-accent-hover;
 	cursor: pointer;
 	border: 1px solid $color-accent-hover;
-	border-radius: $size-xs;
 
 	svg {
 		stroke: $color-light;
@@ -21,8 +20,6 @@
 	right: $size-xs;
 	top: 85px;
 	position: absolute;
-	padding: $size-m;
-	border-radius: $size-xs;
 
 	@media (min-width: 767px) {
 		width: 325px;
