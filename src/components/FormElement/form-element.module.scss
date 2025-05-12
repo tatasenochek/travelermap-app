@@ -1,0 +1,36 @@
+@use "../../styles/variables" as *;
+
+.field {
+	display: flex;
+	flex-direction: column;
+  position: relative;
+  margin-bottom: $size-xl;
+
+	&-label {
+    opacity: 0.7;
+	}
+
+	&-input {
+		height: 40px;
+		font-size: 16px;
+		border: 1px solid $color-darck-opacity;
+		padding: $size-xs;
+    margin-top: $size-s;
+
+		&-error {
+			border-color: red;
+		}
+
+		&:focus-visible {
+			outline-color: $color-accent-hover;
+		}
+	}
+
+	&-error {
+		font-size: 12px;
+		color: red;
+    margin-top: $size-xxs;
+    position: absolute;
+    bottom: -16px;
+	}
+}
