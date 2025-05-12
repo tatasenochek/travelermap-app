@@ -1,0 +1,12 @@
+@use "../../styles/variables" as *;
+
+// форма будет открываться через МО border, padding, width надо будет убрать
+
+.form {
+	border: 1px solid $color-darck-opacity;
+	padding: $size-m;
+	width: 320px;
+	margin: 50px auto;
+	display: flex;
+	flex-direction: column;
+}
