@@ -3,6 +3,9 @@ import LayoutMain from "../layout/LayoutMain";
 import Home from "../pages/Home/Home";
 import { ROUTES } from "./ROUTES";
 import AddPlace from "../pages/AddPlace/AddPlace";
+import Signup from "../pages/Signup/Signup";
+import Signin from "../pages/Signin/Signin";
+import Place from "../pages/Place/Place";
 
 const router = createBrowserRouter(
 	[
@@ -16,12 +19,24 @@ const router = createBrowserRouter(
 				},
 				{
 					path: ROUTES.ADD_PLACE,
-					element: <AddPlace/>
+					element: <AddPlace />,
+				},
+				{
+					path: ROUTES.SIGNUP,
+					element: <Signup />,
+				},
+				{
+					path: ROUTES.SIGNIN,
+					element: <Signin />,
+				},
+				{
+					path: ROUTES.PLACE,
+					element: <Place />,
 				},
 				{
 					path: ROUTES.PERSONAL_ACCOUNT,
-					element:<></>
-				}
+					element: <></>,
+				},
 			],
 		},
 	],
@@ -30,6 +45,6 @@ const router = createBrowserRouter(
 	}
 );
 
-const Router = () => <RouterProvider router={router}/>
+const Router = () => <RouterProvider router={router} />;
 
-export default Router
+export default Router;
