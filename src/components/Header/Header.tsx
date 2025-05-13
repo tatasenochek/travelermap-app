@@ -4,23 +4,57 @@ import { Link } from "react-router-dom";
 import styles from "./header.module.scss";
 import { ROUTES } from "../../router/ROUTES";
 import LinkButton from "../LinkButton/LinkButton";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
+import { LogIn, LogOut, ScanFace } from "lucide-react";
+import Button from "../Button/Button";
+import { memo } from "react";
+import { useLogout } from "../../hooks/useLogout";
 
 const Header = () => {
+	const { userName, isAuth } = useSelector((state: RootState) => state.auth);
+
+	const Logo = memo(() => (
+		<Link to={ROUTES.HOME} className={styles.headerLogo}>
+			<img src={logo} alt="Карта путешественника" />
+			<h1>
+				Карта <br /> путешественника
+			</h1>
+		</Link>
+	));
+
+	const UserProfileContent = memo(() => (
+		<>
+			<ScanFace color="green" size={16} /> {userName}
+		</>
+	));
+
+	const AuthButtons = memo(() =>
+		isAuth ? (
+			<Button onClick={handleLogout} aria-label="Выйти">
+				<LogOut size={16} /> Выйти
+			</Button>
+		) : (
+			<LinkButton to={ROUTES.SIGNUP} aria-label="Войти">
+				<LogIn size={16} /> Войти
+			</LinkButton>
+		)
+	);
+
+	const { handleLogout } = useLogout();
+
 	return (
 		<header className={styles.header}>
-			<Link to={ROUTES.HOME} className={styles.headerLogo}>
-				<img src={logo} alt="Карта путешественника" />
-				<h1>
-					Карта <br /> путешественника
-				</h1>
-			</Link>
+			<Logo />
 			<div className={styles.headerAction}>
-				<LinkButton to={ROUTES.SIGNUP}>Войти</LinkButton>
-				<LinkButton to={ROUTES.PERSONAL_ACCOUNT}>Личный кабинет</LinkButton>
+				<AuthButtons />
+				<LinkButton to={ROUTES.PERSONAL_ACCOUNT}>
+					{isAuth ? <UserProfileContent /> : "Личный кабинет"}
+				</LinkButton>
 				<Navigation />
 			</div>
 		</header>
 	);
 };
 
-export default Header;
+export default memo(Header);
