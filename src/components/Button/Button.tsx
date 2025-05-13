@@ -5,7 +5,6 @@ import { PulseLoader } from "react-spinners";
 
 const override: CSSProperties = {
 	display: "block",
-	// marginTop: "5px",
 };
 
 type ButtonStyles = "primary" | "secondary" | "icon";
