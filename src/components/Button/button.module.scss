@@ -7,6 +7,8 @@
 	border: 1px solid;
 	padding: $size-xs $size-l;
 	height: 40px;
+	display: flex;
+	align-items: center;
 
 	&:disabled {
 		cursor: not-allowed;

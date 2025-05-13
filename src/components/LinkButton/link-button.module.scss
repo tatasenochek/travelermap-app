@@ -17,6 +17,9 @@
 	padding: $size-xs $size-l;
 	height: 40px;
 	border-color: $color-accent-hover;
+	display: flex;
+	align-items: center;
+	gap: $size-s;
 
 	&:hover {
 		box-shadow: 3px 3px 1px $color-accent-hover;
