@@ -7,14 +7,18 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "../store/api/queryClient";
 import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<ErrorBoundary FallbackComponent={ErrorPage}>
-			<QueryClientProvider client={queryClient}>
-				<App />
-				<Toaster/>
-			</QueryClientProvider>
+			<Provider store={store}>
+				<QueryClientProvider client={queryClient}>
+					<App />
+					<Toaster />
+				</QueryClientProvider>
+			</Provider>
 		</ErrorBoundary>
 	</StrictMode>
 );
