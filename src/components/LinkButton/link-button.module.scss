@@ -2,20 +2,44 @@
 
 .link {
 	cursor: pointer;
-	background: transparent;
 	font-size: 16px;
-	border: 1px solid;
-	padding: $size-xs $size-l;
-	height: 40px;
-	border-color: $color-accent-hover;
+	position: relative;
 	transition: all 0.3s;
 
 	&:disabled {
 		cursor: not-allowed;
 		opacity: 0.5;
 	}
+}
+
+.primary {
+	border: 1px solid;
+	padding: $size-xs $size-l;
+	height: 40px;
+	border-color: $color-accent-hover;
 
 	&:hover {
-		box-shadow: 3px 3px 1px rgb(246, 140, 67);
+		box-shadow: 3px 3px 1px $color-accent-hover;
+	}
+}
+
+.secondary {
+	color: $color-accent-hover;
+	font-weight: 600;
+	padding: $size-xxs;
+
+	&::after {
+		content: "";
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		width: 0;
+		background: $color-accent-hover;
+		height: 1px;
+		transition: width 0.3s;
+	}
+
+	&:hover::after {
+		width: 100%;
 	}
 }
