@@ -12,10 +12,6 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 	) : (
 		<Navigate
 			to={`${ROUTES.SIGNIN}`}
-			state={{
-				backgroundPath: location,
-				modalOpen: true,
-			}}
 			replace
 		/>
 	);

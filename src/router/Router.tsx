@@ -6,6 +6,7 @@ import AddPlace from "../pages/AddPlace/AddPlace";
 import Signup from "../pages/Signup/Signup";
 import Signin from "../pages/Signin/Signin";
 import Place from "../pages/Place/Place";
+import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter(
 	[
@@ -19,7 +20,11 @@ const router = createBrowserRouter(
 				},
 				{
 					path: ROUTES.ADD_PLACE,
-					element: <AddPlace />,
+					element: (
+						<PrivateRoute>
+							<AddPlace />
+						</PrivateRoute>
+					),
 				},
 				{
 					path: ROUTES.SIGNUP,
@@ -35,7 +40,11 @@ const router = createBrowserRouter(
 				},
 				{
 					path: ROUTES.PERSONAL_ACCOUNT,
-					element: <></>,
+					element: (
+						<PrivateRoute>
+							<></>
+						</PrivateRoute>
+					),
 				},
 			],
 		},
