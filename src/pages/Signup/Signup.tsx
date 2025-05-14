@@ -4,63 +4,10 @@ import Form from "../../components/Form/Form";
 import FormElement from "../../components/FormElement/FormElement";
 import LinkButton from "../../components/LinkButton/LinkButton";
 import { ROUTES } from "../../router/ROUTES";
-import { useForm } from "react-hook-form";
-import { SignupSchema, type SignupFormData } from "../../utils/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { supabase } from "../../db/config";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { useSignup } from "../../hooks/useSignup";
 
 const Signup = () => {
-	const navigate = useNavigate();
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, isValid, isSubmitting },
-	} = useForm<SignupFormData>({
-		resolver: zodResolver(SignupSchema),
-		mode: "all",
-		reValidateMode: "onChange",
-	});
-
-	const signupMutation = useMutation({
-		mutationFn: async (formData: SignupFormData) => {
-			const { data, error } = await supabase.auth.signUp({
-				email: formData.email,
-				password: formData.password,
-				options: {
-					data: {
-						name: formData.name,
-					},
-				},
-			});
-
-			if (error) {
-				console.error("Полная ошибка:", {
-					status: error.status, // 400?
-					message: error.message, // "Email already registered"
-					details: error, // Весь объект ошибки
-				});
-			}
-			return data;
-		},
-		// onError: (error: any) => {
-		// 	setError("root", {
-		// 		type: "manual",
-		// 		message: error.message || "Ошибка регистрации",
-		// 	});
-		// },
-		onSuccess: () => {
-			// Редирект или показ успешного сообщения
-			toast.success("Регистрация успешна!");
-			navigate(ROUTES.HOME)
-		},
-	});
-
-	const onSubmit = handleSubmit((data) => {
-		signupMutation.mutate(data);
-	});
+	const { register, errors, onSubmit, isValid, isSubmitting } = useSignup();
 
 	return (
 		<main className={styles.signup}>
