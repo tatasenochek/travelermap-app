@@ -20,6 +20,7 @@
 	right: $size-xs;
 	top: 85px;
 	position: absolute;
+	padding: $size-m;
 
 	@media (min-width: 767px) {
 		width: 325px;
