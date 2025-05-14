@@ -13,6 +13,17 @@ import { useLogout } from "../../hooks/useLogout";
 
 const Header = () => {
 	const { userName, isAuth } = useSelector((state: RootState) => state.auth);
+	const { mutate: logout, isPending } = useLogout();
+
+	const handleLogout = () => {
+		const isConfirm = confirm(
+			"Вы действительно хотит выйти из личного кабинета?"
+		);
+
+		if (!isConfirm) return;
+
+		logout();
+	};
 
 	const Logo = memo(() => (
 		<Link to={ROUTES.HOME} className={styles.headerLogo}>
@@ -31,7 +42,12 @@ const Header = () => {
 
 	const AuthButtons = memo(() =>
 		isAuth ? (
-			<Button onClick={handleLogout} aria-label="Выйти">
+			<Button
+				onClick={handleLogout}
+				disabled={isPending}
+				isLoading={isPending}
+				aria-label="Выйти"
+			>
 				<LogOut size={16} /> Выйти
 			</Button>
 		) : (
@@ -40,8 +56,6 @@ const Header = () => {
 			</LinkButton>
 		)
 	);
-
-	const { handleLogout } = useLogout();
 
 	return (
 		<header className={styles.header}>
