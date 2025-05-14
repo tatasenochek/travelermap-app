@@ -1,7 +1,10 @@
+import { useAuth } from "../hooks/useAuth";
 import Router from "../router/Router";
 
 function App() {
-	return <Router/>;
+	useAuth();
+
+	return <Router />;
 }
 
 export default App;
