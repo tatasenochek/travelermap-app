@@ -1,0 +1,19 @@
+@use "../../styles/variables" as *;
+
+.signin {
+	border: 1px solid $color-darck-opacity;
+	padding: $size-xxl $size-l;
+	width: 320px;
+	margin: 50px auto;
+
+	&-action {
+		padding-top: $size-xl;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-text {
+      opacity: 0.7;
+    }
+	}
+}
