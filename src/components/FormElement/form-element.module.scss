@@ -6,6 +6,47 @@
   position: relative;
   margin-bottom: $size-xl;
 
+	&-wrapper {
+		border: 1px solid $color-darck-opacity;
+		position: relative;
+		display: flex;
+		margin-top: $size-s;
+		height: 40px;
+		padding-left: $size-xs;
+
+		&-pass {
+			// background-color: aqua;
+			width: calc(100% - 40px);
+			border: none;
+
+			&:focus-visible {
+				outline: none;
+			}
+		}
+
+		&-error {
+			border-color: red;
+		}
+
+		button {
+			width: 40px;
+			height: 40px;
+			border: none;
+			background-color: transparent;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			right: 0;
+			cursor: pointer;
+		}
+
+		&:has(&-pass:focus-visible) {
+			outline: 2px solid $color-accent-hover;
+		}
+	}
+
+
 	&-label {
     opacity: 0.7;
 	}

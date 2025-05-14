@@ -1,7 +1,8 @@
 import styles from "./form-element.module.scss";
-import { forwardRef, type InputHTMLAttributes } from "react";
+import { forwardRef, useState, type InputHTMLAttributes } from "react";
 import { Field, Input, Label } from "@headlessui/react";
 import clsx from "clsx";
+import { Eye, EyeClosed } from "lucide-react";
 
 interface IFormElementProps extends InputHTMLAttributes<HTMLInputElement> {
 	label: string;
@@ -10,21 +11,58 @@ interface IFormElementProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const FormElement = forwardRef<HTMLInputElement, IFormElementProps>(
-	({ label, error, name, ...props }, ref) => {
+	({ label, error, name, type, ...props }, ref) => {
+		const [showPassword, setShowPassword] = useState(false);
+
+		const togglePasswordVisibility = () => {
+			setShowPassword(!showPassword);
+		};
+
+		const inputType = type === "password" && showPassword ? "text" : type;
+
 		return (
 			<Field className={styles.field}>
 				<Label className={styles.fieldLabel} htmlFor={name}>
 					{label}
 				</Label>
-				<Input
-					className={clsx(styles.fieldInput, error && styles.fieldInputError)}
-					ref={ref}
-					name={name}
-					id={name}
-					aria-invalid={!!error}
-					aria-describedby={error ? `${name}-error` : undefined}
-					{...props}
-				/>
+				{type === "password" ? (
+					<div
+						className={clsx(
+							styles.fieldWrapper,
+							error && styles.fieldWrapperError
+						)}
+					>
+						<Input
+							className={clsx(styles.fieldWrapperPass)}
+							ref={ref}
+							name={name}
+							type={inputType}
+							id={name}
+							aria-invalid={!!error}
+							aria-describedby={error ? `${name}-error` : undefined}
+							{...props}
+						/>
+						<button
+							type="button"
+							onClick={togglePasswordVisibility}
+							className={styles["toggle-button"]}
+							title={showPassword ? "Скрыть пароль" : "Показать пароль"}
+							aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
+						>
+							{showPassword ? <EyeClosed /> : <Eye />}
+						</button>
+					</div>
+				) : (
+					<Input
+						className={clsx(styles.fieldInput, error && styles.fieldInputError)}
+						ref={ref}
+						name={name}
+						id={name}
+						aria-invalid={!!error}
+						aria-describedby={error ? `${name}-error` : undefined}
+						{...props}
+					/>
+				)}
 				{error && (
 					<span
 						id={`${name}-error`}
