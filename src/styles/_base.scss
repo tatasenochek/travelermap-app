@@ -2,11 +2,11 @@
 
 * {
 	font-family: $font-main;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  color: $color-darck;
-  border-radius: $size-xs;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	color: $color-dark;
+	border-radius: $size-xs;
 }
 
 h1,
@@ -17,9 +17,9 @@ h3 {
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 body {
-  padding: $size-xs;
+	padding: $size-xs;
 }

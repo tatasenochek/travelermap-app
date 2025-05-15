@@ -3,11 +3,11 @@
 .field {
 	display: flex;
 	flex-direction: column;
-  position: relative;
-  margin-bottom: $size-xl;
+	position: relative;
+	margin-bottom: $size-xl;
 
 	&-wrapper {
-		border: 1px solid $color-darck-opacity;
+		border: 1px solid $color-dark-opacity;
 		position: relative;
 		display: flex;
 		margin-top: $size-s;
@@ -15,7 +15,6 @@
 		padding-left: $size-xs;
 
 		&-pass {
-			// background-color: aqua;
 			width: calc(100% - 40px);
 			border: none;
 
@@ -46,17 +45,16 @@
 		}
 	}
 
-
 	&-label {
-    opacity: 0.7;
+		opacity: 0.7;
 	}
 
 	&-input {
 		height: 40px;
 		font-size: 16px;
-		border: 1px solid $color-darck-opacity;
+		border: 1px solid $color-dark-opacity;
 		padding: $size-xs;
-    margin-top: $size-s;
+		margin-top: $size-s;
 
 		&-error {
 			border-color: red;
@@ -70,8 +68,8 @@
 	&-error {
 		font-size: 12px;
 		color: red;
-    margin-top: $size-xxs;
-    position: absolute;
-    bottom: -16px;
+		margin-top: $size-xxs;
+		position: absolute;
+		bottom: -16px;
 	}
 }

@@ -1,7 +1,7 @@
 @use "../../styles/variables" as *;
 
 .header {
-	border-bottom: 1px solid $color-darck-opacity;
+	border-bottom: 1px solid $color-dark-opacity;
 	margin-bottom: $size-l;
 	display: flex;
 	flex-direction: column;
@@ -18,7 +18,7 @@
 		order: 1;
 		gap: $size-m;
 		padding: $size-s 0;
-		border-top: 1px solid $color-darck-opacity;
+		border-top: 1px solid $color-dark-opacity;
 		justify-content: center;
 
 		img {
@@ -35,10 +35,10 @@
 	.header {
 		display: flex;
 		justify-content: space-between;
-    flex-direction: row;
+		flex-direction: row;
 
 		&-logo {
-      order: 0;
+			order: 0;
 			border: none;
 		}
 	}
