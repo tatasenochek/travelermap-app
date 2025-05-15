@@ -8,21 +8,18 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { LogIn, LogOut, ScanFace } from "lucide-react";
 import Button from "../Button/Button";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useLogout } from "../../hooks/useLogout";
+import { Modal } from "../Modal/Modal";
 
 const Header = () => {
+	const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
 	const { userName, isAuth } = useSelector((state: RootState) => state.auth);
 	const { mutate: logout, isPending } = useLogout();
 
 	const handleLogout = () => {
-		const isConfirm = confirm(
-			"Вы действительно хотит выйти из личного кабинета?"
-		);
-
-		if (!isConfirm) return;
-
 		logout();
+		setIsVisibleModal((prev) => !prev);
 	};
 
 	const Logo = memo(() => (
@@ -43,7 +40,7 @@ const Header = () => {
 	const AuthButtons = memo(() =>
 		isAuth ? (
 			<Button
-				onClick={handleLogout}
+				onClick={() => setIsVisibleModal((prev) => !prev)}
 				disabled={isPending}
 				isLoading={isPending}
 				aria-label="Выйти"
@@ -67,6 +64,16 @@ const Header = () => {
 				</LinkButton>
 				<Navigation />
 			</div>
+
+			<Modal
+				isOpen={isVisibleModal}
+				aria-label="Подтверждение выхода из личного кабинета"
+				onClose={() => setIsVisibleModal((prev) => !prev)}
+				title="Подтвердите выход"
+				description="Вы действительно хотите выйти из личного кабинета?"
+				isConfirm
+				onCloseIsConfirmed={handleLogout}
+			/>
 		</header>
 	);
 };
