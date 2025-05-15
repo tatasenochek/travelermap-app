@@ -20,11 +20,11 @@
 
 .primary {
 	border-color: $color-accent-hover;
-  transition: all 0.3s;
+	transition: all 0.3s;
 }
 
 .primary:hover {
-	box-shadow: 3px 3px 1px rgb(246, 140, 67);
+	box-shadow: 3px 3px 1px $color-accent-hover;
 }
 
 .icon {
@@ -33,10 +33,41 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-  background: $color-accent-hover;
-  border-color: $color-accent-hover;
+}
+
+.icon-primary {
+	@extend .icon;
+	background: $color-accent-hover;
+	border-color: $color-accent-hover;
 
 	svg {
 		stroke: $color-light;
 	}
+}
+
+.icon-secondary {
+	@extend .icon;
+	border-color: $color-dark-secondary;
+
+	svg {
+		stroke: $color-dark-secondary;
+	}
+}
+
+.icon-tertiary {
+	@extend .icon;
+	border-color: transparent;
+
+	svg {
+		stroke: $color-dark-secondary;
+	}
+}
+
+.secondary {
+	border-color: $color-dark-secondary;
+	transition: all 0.3s;
+}
+
+.secondary:hover {
+	box-shadow: 3px 3px 1px $color-dark-secondary;
 }

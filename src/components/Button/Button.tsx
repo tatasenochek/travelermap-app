@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
 import clsx from "clsx";
 import styles from "./button.module.scss";
 import { PulseLoader } from "react-spinners";
@@ -7,11 +7,16 @@ const override: CSSProperties = {
 	display: "block",
 };
 
-type ButtonStyles = "primary" | "secondary" | "icon";
+type ButtonStyles =
+	| "primary"
+	| "secondary"
+	| "iconPrimary"
+	| "iconSecondary"
+	| "iconTertiary";
 
-interface IButtonProps {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: ReactNode;
-	style?: ButtonStyles;
+	variant?: ButtonStyles;
 	isLoading?: boolean;
 	title?: string;
 	disabled?: boolean;
@@ -20,7 +25,7 @@ interface IButtonProps {
 
 const Button = ({
 	children,
-	style = "primary",
+	variant = "primary",
 	isLoading = false,
 	disabled = false,
 	title = "",
@@ -30,7 +35,7 @@ const Button = ({
 	return (
 		<button
 			title={title}
-			className={clsx(styles.button, styles[`${style}`])}
+			className={clsx(styles.button, styles[`${variant}`])}
 			disabled={disabled || isLoading}
 			aria-busy={isLoading}
 			onClick={onClick}
