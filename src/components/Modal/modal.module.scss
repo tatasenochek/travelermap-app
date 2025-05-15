@@ -1,0 +1,47 @@
+@use "../../styles/variables" as *;
+
+.backdrop {
+	position: fixed;
+	inset: 0;
+	background: $color-dark-secondary;
+	z-index: 1;
+}
+
+.modal {
+	position: absolute;
+	background-color: white;
+	width: 320px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 2;
+	padding: $size-s;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	&-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: $size-l;
+	}
+
+	&-title {
+		font-size: 20px;
+	}
+
+	&-actions {
+		display: flex;
+		margin-top: $size-l;
+		gap: $size-l;
+		justify-content: end;
+	}
+}
+
+@media (min-width: 768px) {
+	.modal {
+		width: 450px;
+		padding: $size-m;
+	}
+}
