@@ -27,7 +27,7 @@ const Signin = () => {
 				<Button
 					disabled={!isValid || isSubmitting}
 					isLoading={isSubmitting}
-					style="primary"
+					variant="primary"
 				>
 					Отправить
 				</Button>

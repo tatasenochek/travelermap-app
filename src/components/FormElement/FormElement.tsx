@@ -3,6 +3,7 @@ import { forwardRef, useState, type InputHTMLAttributes } from "react";
 import { Field, Input, Label } from "@headlessui/react";
 import clsx from "clsx";
 import { Eye, EyeClosed } from "lucide-react";
+import Button from "../Button/Button";
 
 interface IFormElementProps extends InputHTMLAttributes<HTMLInputElement> {
 	label: string;
@@ -42,15 +43,15 @@ const FormElement = forwardRef<HTMLInputElement, IFormElementProps>(
 							aria-describedby={error ? `${name}-error` : undefined}
 							{...props}
 						/>
-						<button
+						<Button
+							variant="iconTertiary"
 							type="button"
 							onClick={togglePasswordVisibility}
-							className={styles["toggle-button"]}
 							title={showPassword ? "Скрыть пароль" : "Показать пароль"}
 							aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
 						>
 							{showPassword ? <EyeClosed /> : <Eye />}
-						</button>
+						</Button>
 					</div>
 				) : (
 					<Input
