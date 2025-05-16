@@ -8,8 +8,8 @@
 }
 
 .modal {
-	position: absolute;
-	background-color: white;
+	position: fixed;
+	background-color: $color-light;
 	width: 320px;
 	display: flex;
 	align-items: center;

@@ -1,11 +1,6 @@
 @use "../../styles/variables" as *;
 
 .signup {
-	border: 1px solid $color-dark-opacity;
-	padding: $size-xxl $size-l;
-	width: 320px;
-	margin: 50px auto;
-
 	&-action {
 		padding-top: $size-xl;
 		display: flex;

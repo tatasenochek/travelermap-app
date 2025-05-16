@@ -1,6 +1,13 @@
 @use "../../styles/variables" as *;
 
 .form {
+	width: calc(320px -  2 * $size-m);
 	display: flex;
 	flex-direction: column;
+}
+
+@media (min-width: 768px) {
+	.form {
+		width: calc(450px -  2 * $size-m);
+	}
 }
