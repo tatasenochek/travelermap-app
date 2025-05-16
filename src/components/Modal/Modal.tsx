@@ -16,8 +16,8 @@ interface IModalProps {
 	children?: ReactNode;
 	onClose: () => void;
 	isConfirm: boolean;
-	description: string;
-	onCloseIsConfirmed: () => void;
+	description?: string;
+	onCloseIsConfirmed?: () => void;
 }
 
 export function Modal({

@@ -7,6 +7,7 @@ import Signup from "../pages/Signup/Signup";
 import Signin from "../pages/Signin/Signin";
 import Place from "../pages/Place/Place";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
+import LayoutModal from "../layout/LayoutModal";
 
 const router = createBrowserRouter(
 	[
@@ -28,11 +29,23 @@ const router = createBrowserRouter(
 				},
 				{
 					path: ROUTES.SIGNUP,
-					element: <Signup />,
+					element: <LayoutModal title="Регистрация" />,
+					children: [
+						{
+							path: "",
+							element: <Signup />,
+						},
+					],
 				},
 				{
 					path: ROUTES.SIGNIN,
-					element: <Signin />,
+					element: <LayoutModal title="Авторизация" />,
+					children: [
+						{
+							path: "",
+							element: <Signin />,
+						},
+					],
 				},
 				{
 					path: ROUTES.PLACE,
