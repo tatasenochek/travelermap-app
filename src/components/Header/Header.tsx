@@ -11,6 +11,7 @@ import Button from "../Button/Button";
 import { memo, useState } from "react";
 import { useLogout } from "../../hooks/useLogout";
 import { Modal } from "../Modal/Modal";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 const Header = () => {
 	const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
@@ -62,6 +63,7 @@ const Header = () => {
 				<LinkButton to={ROUTES.PERSONAL_ACCOUNT}>
 					{isAuth ? <UserProfileContent /> : "Личный кабинет"}
 				</LinkButton>
+				<ThemeToggle/>
 				<Navigation />
 			</div>
 

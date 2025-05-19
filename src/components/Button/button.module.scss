@@ -41,16 +41,16 @@
 	border-color: $color-accent-hover;
 
 	svg {
-		stroke: $color-light;
+		stroke: var(--color-bg);
 	}
 }
 
 .icon-secondary {
 	@extend .icon;
-	border-color: $color-dark-secondary;
+	border-color: var(--color-main-secondary);
 
 	svg {
-		stroke: $color-dark-secondary;
+		stroke: var(--color-main-secondary);
 	}
 }
 
@@ -59,15 +59,15 @@
 	border-color: transparent;
 
 	svg {
-		stroke: $color-dark-secondary;
+		stroke: var(--color-main-secondary);
 	}
 }
 
 .secondary {
-	border-color: $color-dark-secondary;
+	border-color: var(--color-main-secondary);
 	transition: all 0.3s;
 }
 
 .secondary:hover {
-	box-shadow: 3px 3px 1px $color-dark-secondary;
+	box-shadow: 3px 3px 1px var(--color-main-secondary);
 }

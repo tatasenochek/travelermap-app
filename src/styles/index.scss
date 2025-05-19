@@ -1,2 +1,17 @@
 @use "base";
 @use "variables";
+
+:root {
+  /* color */
+	--color-bg: rgb(255, 255, 255);
+	--color-main: rgb(51, 51, 51);
+	--color-main-opacity: rgba(51, 51, 51, 0.1);
+	--color-main-secondary: rgba(51, 51, 51, 0.8);
+}
+
+.dark {
+	--color-bg: rgb(51, 51, 51);
+	--color-main: rgb(250, 250, 250);
+	--color-main-opacity: rgba(255, 255, 255, 0.1);
+	--color-main-secondary: rgba(255, 255, 255, 0.8);
+}
