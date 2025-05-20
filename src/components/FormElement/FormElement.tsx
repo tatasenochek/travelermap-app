@@ -1,6 +1,6 @@
 import styles from "./form-element.module.scss";
 import { forwardRef, useState, type InputHTMLAttributes } from "react";
-import { Field, Input, Label } from "@headlessui/react";
+import { Field, Input, Label, Textarea } from "@headlessui/react";
 import clsx from "clsx";
 import { Eye, EyeClosed } from "lucide-react";
 import Button from "../Button/Button";
@@ -9,10 +9,11 @@ interface IFormElementProps extends InputHTMLAttributes<HTMLInputElement> {
 	label: string;
 	error?: string;
 	name: string;
+	variant?: string;
 }
 
 const FormElement = forwardRef<HTMLInputElement, IFormElementProps>(
-	({ label, error, name, type, ...props }, ref) => {
+	({ label, error, name, type, variant, ...props }, ref) => {
 		const [showPassword, setShowPassword] = useState(false);
 
 		const togglePasswordVisibility = () => {
@@ -53,10 +54,13 @@ const FormElement = forwardRef<HTMLInputElement, IFormElementProps>(
 							{showPassword ? <EyeClosed /> : <Eye />}
 						</Button>
 					</div>
+				) : variant === "textarea" ? (
+					<Textarea className={styles.fieldInputTextarea} />
 				) : (
 					<Input
 						className={clsx(styles.fieldInput, error && styles.fieldInputError)}
 						ref={ref}
+						type={type}
 						name={name}
 						id={name}
 						aria-invalid={!!error}

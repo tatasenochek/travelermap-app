@@ -8,7 +8,7 @@
 	margin-bottom: $size-xl;
 
 	&-wrapper {
-		width: 100%;
+		// width: 100%;
 		border: 1px solid var(--color-main-opacity);
 		position: relative;
 		display: flex;
@@ -29,19 +29,6 @@
 			border-color: red;
 		}
 
-		button {
-			width: 40px;
-			height: 40px;
-			border: none;
-			background-color: transparent;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: absolute;
-			right: 0;
-			cursor: pointer;
-		}
-
 		&:has(&-pass:focus-visible) {
 			outline: 2px solid $color-accent-hover;
 		}
@@ -52,12 +39,17 @@
 	}
 
 	&-input {
-		width: 100%;
+		// width: 100%;
 		height: 40px;
 		font-size: 16px;
 		border: 1px solid var(--color-main-opacity);
 		padding: $size-xs;
 		margin-top: $size-s;
+
+		&-textarea {
+			@extend .field-input;
+			height: 120px;
+		}
 
 		&-error {
 			border-color: red;
