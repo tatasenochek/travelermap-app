@@ -23,29 +23,27 @@ const router = createBrowserRouter(
 					path: ROUTES.ADD_PLACE,
 					element: (
 						<PrivateRoute>
-							<AddPlace />
+							<LayoutModal title="Место" Component={Home}>
+								<AddPlace />
+							</LayoutModal>
 						</PrivateRoute>
 					),
 				},
 				{
 					path: ROUTES.SIGNUP,
-					element: <LayoutModal title="Регистрация" />,
-					children: [
-						{
-							path: "",
-							element: <Signup />,
-						},
-					],
-				},
+					element: (
+						<LayoutModal title="Регистрация" Component={Home}>
+							<Signup />
+						</LayoutModal>
+					),
+				},  
 				{
 					path: ROUTES.SIGNIN,
-					element: <LayoutModal title="Авторизация" />,
-					children: [
-						{
-							path: "",
-							element: <Signin />,
-						},
-					],
+					element: (
+						<LayoutModal title="Авторизация" Component={Home}>
+							<Signin />
+						</LayoutModal>
+					),
 				},
 				{
 					path: ROUTES.PLACE,
@@ -55,7 +53,7 @@ const router = createBrowserRouter(
 					path: ROUTES.PERSONAL_ACCOUNT,
 					element: (
 						<PrivateRoute>
-							<></>
+							<main>PERSONAL ACCOUNT</main>
 						</PrivateRoute>
 					),
 				},
