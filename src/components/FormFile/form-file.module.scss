@@ -1,0 +1,42 @@
+@use "../../styles/variables" as *;
+
+.file {
+	margin-bottom: 1.5rem;
+  position: relative;
+
+	&-label {
+		display: block;
+		opacity: 0.7;
+		padding-bottom: $size-s;
+	}
+
+	&-error {
+		font-size: 12px;
+		color: red;
+		margin-top: $size-xxs;
+		position: absolute;
+		bottom: -16px;
+	}
+}
+
+.filepond--file-status {
+  font-size: 12px;
+}
+
+.filepond--file-info-main {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filepond--file-info-sub {
+  color: #666;
+}
+
+.filepond--file-status-sub {
+  color: green; 
+}
+
+.filepond--file-status-error {
+  color: red;
+}
