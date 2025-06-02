@@ -36,18 +36,22 @@ const router = createBrowserRouter(
 							<Signup />
 						</LayoutModal>
 					),
-				},  
+				},
 				{
 					path: ROUTES.SIGNIN,
 					element: (
-						<LayoutModal title="Авторизация" Component={Home}>
+						<LayoutModal title="Вход" Component={Home}>
 							<Signin />
 						</LayoutModal>
 					),
 				},
 				{
-					path: ROUTES.PLACE,
-					element: <Place />,
+					path: `${ROUTES.PLACE}/:id`,
+					element: (
+						<LayoutModal title="Подробнее" Component={Home}>
+							<Place />
+						</LayoutModal>
+					),
 				},
 				{
 					path: ROUTES.PERSONAL_ACCOUNT,

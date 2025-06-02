@@ -1,0 +1,35 @@
+@use "../../styles/variables" as *;
+
+.place {
+  width: 300px;
+
+	&-title {
+		margin-bottom: $size-m;
+	}
+
+	&-description {
+		margin-bottom: $size-s;
+	}
+
+	&-not-auth {
+		opacity: 0.6;
+		width: 120px;
+		height: 150px;
+		border: 1px solid lightgray;
+		font-size: 12px;
+		padding: $size-xs;
+
+	}
+
+  &-image {
+		width: 120px;
+		height: 150px;
+		object-fit: cover;
+	}
+}
+
+@media (min-width: 768px) {
+	.place {
+		width: 430px;
+	}
+}
