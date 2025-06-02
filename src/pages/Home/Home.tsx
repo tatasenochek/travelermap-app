@@ -1,5 +1,11 @@
+import YandexMap from "../../components/Map/Map";
+
 const Home = () => {
-	return <div>Home</div>;
+	return (
+		<main>
+			<YandexMap />
+		</main>
+	);
 };
 
 export default Home;
