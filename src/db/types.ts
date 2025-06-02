@@ -3,55 +3,43 @@ export type Database = {
     Tables: {
       places: {
         Row: {
-          address: string | null
-          city: string
-          country: string
-          created_at: string | null
+          created_at: string
           description: string | null
+          file_name: string | null
           id: string
-          lat: number
-          lng: number
-          photos: string[] | null
-          tags: string[] | null
-          title: string
-          updated_at: string | null
+          image_path: string | null
+          latitude: number
+          location: string
+          longitude: number
+          place_name: string
+          route: string
           user_id: string
-          username: string
-          visit_date: string | null
         }
         Insert: {
-          address?: string | null
-          city: string
-          country: string
-          created_at?: string | null
+          created_at: string
           description?: string | null
+          file_name?: string | null
           id?: string
-          lat: number
-          lng: number
-          photos?: string[] | null
-          tags?: string[] | null
-          title: string
-          updated_at?: string | null
+          image_path?: string | null
+          latitude: number
+          location: string
+          longitude: number
+          place_name: string
+          route: string
           user_id?: string
-          username: string
-          visit_date?: string | null
         }
         Update: {
-          address?: string | null
-          city?: string
-          country?: string
-          created_at?: string | null
+          created_at?: string
           description?: string | null
+          file_name?: string | null
           id?: string
-          lat?: number
-          lng?: number
-          photos?: string[] | null
-          tags?: string[] | null
-          title?: string
-          updated_at?: string | null
+          image_path?: string | null
+          latitude?: number
+          location?: string
+          longitude?: number
+          place_name?: string
+          route?: string
           user_id?: string
-          username?: string
-          visit_date?: string | null
         }
         Relationships: []
       }
@@ -93,6 +81,7 @@ export type Database = {
 }
 
 type DefaultSchema = Database[Extract<keyof Database, "public">]
+export type PlaceRow = Database["public"]["Tables"]["places"]["Row"];
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
