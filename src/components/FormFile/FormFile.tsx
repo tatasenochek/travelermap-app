@@ -29,11 +29,11 @@ const FormFile = <T extends FieldValues>({
 	setValue,
 	errors,
 	name,
-	label = "Фото места",
+	label = "Фото места (максимум 5)",
 }: FormFileProps<T>) => {
 	const handleUpdateFiles = (files: FilePondFile[]) => {
-		const file = files[0]?.file || null;
-		setValue(name, file as PathValue<T, Path<T>>, { shouldValidate: true });
+		const fileList = files.map((item) => item.file);
+		setValue(name, fileList as PathValue<T, Path<T>>, { shouldValidate: true });
 	};
 
 	return (
