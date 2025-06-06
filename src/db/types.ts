@@ -1,44 +1,79 @@
 export type Database = {
   public: {
     Tables: {
+      photos: {
+        Row: {
+          created_at: string
+          file_name: string | null
+          id: string
+          image_path: string | null
+          place_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          file_name?: string | null
+          id?: string
+          image_path?: string | null
+          place_id?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          file_name?: string | null
+          id?: string
+          image_path?: string | null
+          place_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "photos_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       places: {
         Row: {
           created_at: string
           description: string | null
-          file_name: string | null
           id: string
-          image_path: string | null
           latitude: number
           location: string
           longitude: number
           place_name: string
           route: string
+          trip_end_date: string | null
+          trip_start_date: string | null
           user_id: string
         }
         Insert: {
           created_at: string
           description?: string | null
-          file_name?: string | null
           id?: string
-          image_path?: string | null
           latitude: number
           location: string
           longitude: number
           place_name: string
           route: string
+          trip_end_date?: string | null
+          trip_start_date?: string | null
           user_id?: string
         }
         Update: {
           created_at?: string
           description?: string | null
-          file_name?: string | null
           id?: string
-          image_path?: string | null
           latitude?: number
           location?: string
           longitude?: number
           place_name?: string
           route?: string
+          trip_end_date?: string | null
+          trip_start_date?: string | null
           user_id?: string
         }
         Relationships: []
@@ -82,6 +117,7 @@ export type Database = {
 
 type DefaultSchema = Database[Extract<keyof Database, "public">]
 export type PlaceRow = Database["public"]["Tables"]["places"]["Row"];
+export type PhotosRow = Database["public"]["Tables"]["photos"]["Row"];
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends

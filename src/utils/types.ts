@@ -23,11 +23,17 @@ export const SignupSchema = z.object({
 export const placeSchema = z.object({
 	place_name: z.string().min(2, "Название должно содержать минимум 2 символа"),
 	description: z.string().optional(),
-	image: z.instanceof(File).optional(),
+	address: z.string(),
+	trip_start_date: z.string().optional(),
+	trip_end_date: z.string().optional(),
+	photos: z
+		.array(z.instanceof(File))
+		.max(5, "Можно загрузить не более 5 фотографий")
+		.optional(),
 });
 
 export type PlaceFormData = z.infer<typeof placeSchema> & {
-	image?: File;
+	photos?: File[];
 };
 export type SignupFormData = z.infer<typeof SignupSchema>;
 export type SigninFormData = z.infer<typeof SigninSchema>;
