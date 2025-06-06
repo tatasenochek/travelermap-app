@@ -1,14 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../db/config";
-import type { PlaceRow } from "../db/types";
 
-export interface IPlace extends Omit<PlaceRow, "latitude" | "longitude"> {
+export interface IPlaceMarker {
 	id: string;
 	coords: [number, number];
-	address: {
-		location: string;
-		route: string;
-	};
 }
 
 export const useGetAllPlaces = () => {
@@ -17,18 +12,15 @@ export const useGetAllPlaces = () => {
 		queryFn: async () => {
 			const { data, error } = await supabase
 				.from("places")
-				.select("*");
+				.select("id, latitude, longitude");
 
-			if (error) throw error;
+			if (error) throw new Error(error.message);
 
 			return data.map((place) => ({
 				...place,
+				id: place.id,
 				coords: [place.latitude, place.longitude] as [number, number],
-				address: {
-					location: place.location,
-					route: place.route,
-				},
-			})) as IPlace[];
+			})) as IPlaceMarker[];
 		},
 	});
 

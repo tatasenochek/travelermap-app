@@ -1,7 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../db/config";
 import { useParams } from "react-router-dom";
-import type { IPlace } from "./useGetAllPlaces";
+import type { PhotosRow, PlaceRow } from "../db/types";
+
+export interface IPlace extends Omit<PlaceRow, "latitude" | "longitude"> {
+	id: string;
+	coords: [number, number];
+	address: {
+		location: string;
+		route: string;
+	};
+	photos: PhotosRow[];
+}
 
 export const useGetPlaceById = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,11 +23,11 @@ export const useGetPlaceById = () => {
 
 			const { data: place, error } = await supabase
 				.from("places")
-				.select("*")
+				.select("*, photos(*)")
 				.eq("id", id)
 				.single();
 
-			if (error) throw error;
+			if (error) throw new Error(error.message);
 
 			return {
 					...place,
@@ -26,6 +36,7 @@ export const useGetPlaceById = () => {
 					location: place.location,
 					route: place.route,
 				},
+				photos: place.photos || [],
 			} as IPlace;
     },
 		enabled: !!id,
