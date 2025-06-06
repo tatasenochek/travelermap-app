@@ -55,22 +55,23 @@ export function Modal({
 										<X />
 									</Button>
 								</header>
-
-								{isConfirm ? (
-									<>
-										<Description className={styles.modalDescription}>
-											{description}
-										</Description>
-										<div className={styles.modalActions}>
-											<Button onClick={onClose} variant="secondary">
-												Отмена
-											</Button>
-											<Button onClick={onCloseIsConfirmed}>Выйти</Button>
-										</div>
-									</>
-								) : (
-									children
-								)}
+								<div className={styles.modalContent}>
+									{isConfirm ? (
+										<>
+											<Description className={styles.modalDescription}>
+												{description}
+											</Description>
+											<div className={styles.modalActions}>
+												<Button onClick={onClose} variant="secondary">
+													Отмена
+												</Button>
+												<Button onClick={onCloseIsConfirmed}>Да</Button>
+											</div>
+										</>
+									) : (
+										children
+									)}
+								</div>
 							</DialogPanel>
 						</div>
 					</Dialog>

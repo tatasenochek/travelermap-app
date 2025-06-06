@@ -35,9 +35,15 @@
 
 	&-actions {
 		display: flex;
-		margin-top: $size-l;
+		margin: $size-l $size-xxs $size-xxs $size-xxs;
 		gap: $size-l;
 		justify-content: end;
+	}
+
+	&-content {
+		overflow-y: auto;
+		flex-grow: 1;
+		max-height: 80vh;
 	}
 }
 
