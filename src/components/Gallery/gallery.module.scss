@@ -1,0 +1,46 @@
+@use "../../styles/variables" as *;
+
+.gallery {
+	width: 300px;
+
+	&-wrapper {
+		display: flex;
+		gap: $size-m;
+		overflow-x: scroll;
+		margin-top: $size-l;
+	}
+
+	&-photo {
+		position: relative;
+
+		&-item {
+			width: 120px;
+			height: 150px;
+			object-fit: cover;
+		}
+
+		&-button {
+			position: absolute;
+			left: $size-xs;
+			top: $size-xs;
+			background: rgba(0, 0, 0, 0.25);
+			border: 1px solid white;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 100%;
+			width: $size-l;
+			height: $size-l;
+			cursor: pointer;
+		}
+	}
+
+	&-not-auth {
+		opacity: 0.6;
+		width: 120px;
+		height: 150px;
+		border: 1px solid lightgray;
+		font-size: 12px;
+		padding: $size-xs;
+	}
+}
