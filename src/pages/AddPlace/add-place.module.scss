@@ -1,0 +1,6 @@
+@use "../../styles/variables" as *;
+
+.wrapper {
+  display: flex;
+  gap: $size-m;
+}
