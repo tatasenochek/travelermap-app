@@ -27,6 +27,7 @@ export const useAddPlace = () => {
 		defaultValues: {
 			place_name: "",
 			description: "",
+			address: address.location || "",
 			trip_start_date: "",
 			trip_end_date: "",
 			photos: [],
@@ -139,7 +140,7 @@ export const useAddPlace = () => {
 	});
 
 	const onSubmit = form.handleSubmit((data) => {
-		placeMutation.mutate(data);
+		return placeMutation.mutateAsync(data);
 	});
 
 	if (!coords || !address) {
