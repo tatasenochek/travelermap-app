@@ -8,6 +8,7 @@ import Signin from "../pages/Signin/Signin";
 import Place from "../pages/Place/Place";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 import LayoutModal from "../layout/LayoutModal";
+import EditPlace from "../pages/EditPlace/EditPlace";
 
 const router = createBrowserRouter(
 	[
@@ -25,6 +26,16 @@ const router = createBrowserRouter(
 						<PrivateRoute>
 							<LayoutModal title="Место" Component={Home}>
 								<AddPlace />
+							</LayoutModal>
+						</PrivateRoute>
+					),
+				},
+				{
+					path: `${ROUTES.EDIT_PLACE}/:id`,
+					element: (
+						<PrivateRoute>
+							<LayoutModal title="Редактировать место" Component={Home}>
+								<EditPlace />
 							</LayoutModal>
 						</PrivateRoute>
 					),

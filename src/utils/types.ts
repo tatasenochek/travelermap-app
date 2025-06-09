@@ -23,7 +23,7 @@ export const SignupSchema = z.object({
 export const placeSchema = z.object({
 	place_name: z.string().min(2, "Название должно содержать минимум 2 символа"),
 	description: z.string().optional(),
-	address: z.string(),
+	address: z.string().min(2, "Название должно содержать минимум 2 символа"),
 	trip_start_date: z.string().optional(),
 	trip_end_date: z.string().optional(),
 	photos: z
