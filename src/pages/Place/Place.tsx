@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import Button from "../../components/Button/Button";
 import Gallery from "../../components/Gallery/Gallery";
+import LinkButton from "../../components/LinkButton/LinkButton";
 
 const Place = () => {
 	const navigate = useNavigate();
@@ -60,7 +61,9 @@ const Place = () => {
 			<Gallery />
 			{isOwner && (
 				<div className={styles.placeAction}>
-					<Button>Редактировать</Button>
+					<LinkButton to={`${ROUTES.EDIT_PLACE}/${place.id}`}>
+						Редактировать
+					</LinkButton>
 					<Button onClick={() => setIsVisibleModal(true)}>Удалить</Button>
 				</div>
 			)}
