@@ -20,6 +20,7 @@
 	display: flex;
 	align-items: center;
 	gap: $size-s;
+	justify-content: center;
 
 	&:hover {
 		box-shadow: 3px 3px 1px $color-accent-hover;
