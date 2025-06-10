@@ -1,0 +1,38 @@
+@use "../../styles/variables" as *;
+
+.personal {
+	&-title {
+		text-align: center;
+		padding-bottom: $size-xxl;
+	}
+
+	&-description {
+		text-align: center;
+	}
+
+	&-list {
+		padding-top: $size-m;
+	}
+
+	&-item {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: $size-l;
+		padding: $size-s $size-l;
+		border: 1px solid var(--color-main-opacity);
+
+		&-text {
+			display: flex;
+			gap: $size-xxs;
+			flex-direction: column;
+			span {
+				opacity: 0.5;
+			}
+
+			@media (min-width: 767px) {
+				flex-direction: row;
+			}
+		}
+	}
+}

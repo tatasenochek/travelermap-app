@@ -9,6 +9,7 @@ import Place from "../pages/Place/Place";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 import LayoutModal from "../layout/LayoutModal";
 import EditPlace from "../pages/EditPlace/EditPlace";
+import PersonalAccount from "../pages/PersonalAccount/PersonalAccount";
 
 const router = createBrowserRouter(
 	[
@@ -68,7 +69,7 @@ const router = createBrowserRouter(
 					path: ROUTES.PERSONAL_ACCOUNT,
 					element: (
 						<PrivateRoute>
-							<main>PERSONAL ACCOUNT</main>
+							<PersonalAccount/>
 						</PrivateRoute>
 					),
 				},

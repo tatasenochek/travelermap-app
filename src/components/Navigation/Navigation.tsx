@@ -1,4 +1,4 @@
-import { MapPinHouse, MapPinPlus, MenuIcon, UserRound } from "lucide-react";
+import { MapPinHouse, MenuIcon, UserRound } from "lucide-react";
 import styles from "./navigation.module.scss";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../router/ROUTES";
@@ -19,15 +19,6 @@ const Navigation = () => {
 				>
 					<MapPinHouse size={20} />
 					Главная страница
-				</MenuItem>
-				<MenuItem
-					as={Link}
-					to={ROUTES.ADD_PLACE}
-					aria-label="Добавить место"
-					className={styles.menuItem}
-				>
-					<MapPinPlus size={20} />
-					Добавить место
 				</MenuItem>
 				<MenuItem
 					as={Link}
