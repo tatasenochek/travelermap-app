@@ -13,6 +13,17 @@ import {
 	Signin,
 	Signup,
 } from "./LAZY";
+import { Suspense } from "react";
+import { PulseLoader } from "react-spinners";
+
+const Loader = (
+	<PulseLoader
+		size={8}
+		color="#333"
+		aria-label="Спинер загрузки"
+		data-testid="loader"
+	/>
+);
 
 const router = createBrowserRouter(
 	[
@@ -28,9 +39,11 @@ const router = createBrowserRouter(
 					path: ROUTES.ADD_PLACE,
 					element: (
 						<PrivateRoute>
-							<LayoutModal title="Место" Component={Home}>
-								<AddPlace />
-							</LayoutModal>
+							<Suspense fallback={Loader}>
+								<LayoutModal title="Место" Component={Home}>
+									<AddPlace />
+								</LayoutModal>
+							</Suspense>
 						</PrivateRoute>
 					),
 				},
@@ -38,50 +51,76 @@ const router = createBrowserRouter(
 					path: `${ROUTES.EDIT_PLACE}/:id`,
 					element: (
 						<PrivateRoute>
-							<LayoutModal title="Редактировать место" Component={Home}>
-								<EditPlace />
-							</LayoutModal>
+							<Suspense fallback={Loader}>
+								<LayoutModal title="Редактировать место" Component={Home}>
+									<EditPlace />
+								</LayoutModal>
+							</Suspense>
 						</PrivateRoute>
 					),
 				},
 				{
 					path: ROUTES.SIGNUP,
 					element: (
-						<LayoutModal title="Регистрация" Component={Home}>
-							<Signup />
-						</LayoutModal>
+						<Suspense fallback={Loader}>
+							<LayoutModal
+								title="Регистрация"
+								Component={Home}
+								backgroundPath={ROUTES.HOME}
+							>
+								<Signup />
+							</LayoutModal>
+						</Suspense>
 					),
 				},
 				{
 					path: ROUTES.SIGNIN,
 					element: (
-						<LayoutModal title="Вход" Component={Home}>
-							<Signin />
-						</LayoutModal>
+						<Suspense fallback={Loader}>
+							<LayoutModal
+								title="Вход"
+								Component={Home}
+								backgroundPath={ROUTES.HOME}
+							>
+								<Signin />
+							</LayoutModal>
+						</Suspense>
 					),
 				},
 				{
 					path: `${ROUTES.PLACE}/:id`,
 					element: (
-						<LayoutModal title="Подробнее" Component={Home}>
-							<Place />
-						</LayoutModal>
+						<Suspense fallback={Loader}>
+							<LayoutModal
+								title="Подробнее"
+								Component={Home}
+								backgroundPath={ROUTES.HOME}
+							>
+								<Place />
+							</LayoutModal>
+						</Suspense>
 					),
 				},
 				{
 					path: ROUTES.PERSONAL_ACCOUNT,
 					element: (
-						<PrivateRoute>
-							<PersonalAccount />
-						</PrivateRoute>
+						<Suspense fallback={Loader}>
+							<PrivateRoute>
+								<PersonalAccount />
+							</PrivateRoute>
+						</Suspense>
 					),
 				},
 			],
 		},
 		{
 			path: "*",
-			element: <NotFound/>
-		}
+			element: (
+				<Suspense fallback={Loader}>
+					<NotFound />
+				</Suspense>
+			),
+		},
 	],
 	{
 		basename: "/travelermap-app",

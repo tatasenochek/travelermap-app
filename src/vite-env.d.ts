@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+import "@testing-library/jest-dom";
 
 interface ISupabase {
 	readonly VITE_SUPABASE_URL: string;

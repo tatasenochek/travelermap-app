@@ -23,7 +23,6 @@ const Signin = () => {
 					{...register("password")}
 					error={errors.password?.message}
 				/>
-				{/* <Button>Забвыли пароль</Button> */}
 				<Button
 					disabled={!isValid || isSubmitting}
 					isLoading={isSubmitting}

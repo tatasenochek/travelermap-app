@@ -19,7 +19,7 @@ const PlaceForm = ({ onSubmit, form }: IPlaceFormProps) => {
   } = form;
   
 	return (
-		<Form onSubmit={onSubmit}>
+		<Form onSubmit={onSubmit} isLoading={isSubmitting}>
 			<FormElement
 				label="Название путешествия"
 				{...register("place_name")}

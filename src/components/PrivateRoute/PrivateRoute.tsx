@@ -11,7 +11,8 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 		children
 	) : (
 		<Navigate
-			to={`${ROUTES.SIGNIN}`}
+				to={`${ROUTES.SIGNIN}`}
+				state={{from: location}}
 			replace
 		/>
 	);

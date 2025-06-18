@@ -8,7 +8,7 @@
 }
 
 .modal {
-	border: 1px solid rgba(51, 51, 51, 0.8);
+	border: 1px solid rgba(211, 211, 211, 0.2);
 	position: fixed;
 	background-color: var(--color-bg);
 	width: 320px;
@@ -20,7 +20,8 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-
+	color: var(--color-main);
+	
 	&-header {
 		display: flex;
 		justify-content: space-between;

@@ -4,17 +4,17 @@ import { RiseLoader } from "react-spinners";
 import { useState } from "react";
 import { Modal } from "../../components/Modal/Modal";
 import { useDeletePlace } from "../../hooks/useDeletePlace";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/ROUTES";
 import { getFormattedDate } from "./helperGetFormatteDate";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import Button from "../../components/Button/Button";
 import Gallery from "../../components/Gallery/Gallery";
-import LinkButton from "../../components/LinkButton/LinkButton";
 
 const Place = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
 	const { place, isLoading, error } = useGetPlaceById();
 	const { deletePlace } = useDeletePlace();
@@ -61,9 +61,17 @@ const Place = () => {
 			<Gallery />
 			{isOwner && (
 				<div className={styles.placeAction}>
-					<LinkButton to={`${ROUTES.EDIT_PLACE}/${place.id}`}>
+					<Button
+						onClick={() =>
+							navigate(`${ROUTES.EDIT_PLACE}/${place.id}`, {
+								state: {
+									backgroundPath: location.pathname,
+								},
+							})
+						}
+					>
 						Редактировать
-					</LinkButton>
+					</Button>
 					<Button onClick={() => setIsVisibleModal(true)}>Удалить</Button>
 				</div>
 			)}

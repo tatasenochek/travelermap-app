@@ -1,7 +1,7 @@
 import type { MapEvent } from "yandex-maps";
 import { Clusterer, Map, Placemark, useYMaps } from "@pbe/react-yandex-maps";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/ROUTES";
 import { PulseLoader } from "react-spinners";
 import { useGetAllPlaces } from "../../hooks/useGetAllPlaces";
@@ -10,6 +10,7 @@ import type { LocationState } from "../../utils/types";
 const YandexMap = () => {
 	const ymaps = useYMaps(["geocode"]);
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { places, isLoading } = useGetAllPlaces();
 
 	const handleClickOnMap = async (e: MapEvent) => {
@@ -27,6 +28,7 @@ const YandexMap = () => {
 
 			navigate(ROUTES.ADD_PLACE, {
 				state: {
+					backgroundPath: location.pathname,
 					coords,
 					address: {
 						location: String(geocodeResult.properties.get("description", {})),
@@ -75,7 +77,13 @@ const YandexMap = () => {
 								key={place.id}
 								geometry={place.coords}
 								options={{ preset: "islands#darkOrangeIcon" }}
-								onClick={() => navigate(`${ROUTES.PLACE}/${place.id}`)}
+								onClick={() =>
+									navigate(`${ROUTES.PLACE}/${place.id}`, {
+										state: {
+											backgroundPath: location.pathname,
+										},
+									})
+								}
 							/>
 						))}
 				</Clusterer>

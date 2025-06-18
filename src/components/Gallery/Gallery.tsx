@@ -1,7 +1,7 @@
 import styles from "./gallery.module.scss";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { supabase } from "../../db/config";
 import { X } from "lucide-react";
 import { useDeletePhoto } from "../../hooks/useDeletePhoto";
@@ -13,7 +13,7 @@ const Gallery = () => {
 	const { place } = useGetPlaceById();
 	const { deletePhoto } = useDeletePhoto();
 	const { userUid } = useSelector((state: RootState) => state.auth);
-	const isOwner: boolean = place?.user_id === userUid;
+	const isOwner: boolean = useMemo(() => place?.user_id === userUid, [place, userUid]);
 
 	const imagesUrl = place?.photos.map((photo) => ({
 		id: photo.id,
@@ -22,6 +22,8 @@ const Gallery = () => {
 					.publicUrl
 			: "",
 	}));
+
+	if (!imagesUrl?.length) return <div>Нет фотографий</div>;
 
 	const handleDeletePhoto = () => {
 		if (isVisibleModal) {

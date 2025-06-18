@@ -8,6 +8,7 @@
 		display: block;
 		opacity: 0.7;
 		padding-bottom: $size-s;
+		color: var(--color-main);
 	}
 
 	&-error {
@@ -16,6 +17,13 @@
 		margin-top: $size-xxs;
 		position: absolute;
 		bottom: -16px;
+	}
+}
+
+label {
+	color: #333;
+	span {
+		color: #333;
 	}
 }
 

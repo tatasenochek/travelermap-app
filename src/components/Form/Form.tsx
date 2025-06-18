@@ -10,9 +10,11 @@ interface IFormProps extends FormHTMLAttributes<HTMLFormElement> {
 
 const Form = ({ formRef, children, isLoading, ...props }: IFormProps) => {
 	return (
-    <form
-      ref={formRef}
+		<form
+			ref={formRef}
 			className={clsx(styles.form, isLoading && styles.formLoading)}
+			data-testid="place-form"
+			aria-busy={isLoading}
 			{...props}
 		>
 			{children}
