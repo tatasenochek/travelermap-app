@@ -16,8 +16,8 @@ const PlaceForm = ({ onSubmit, form }: IPlaceFormProps) => {
   const {
 		register,
 		formState: { errors, isSubmitting, isValid },
-  } = form;
-  
+	} = form;
+	
 	return (
 		<Form onSubmit={onSubmit} isLoading={isSubmitting}>
 			<FormElement
@@ -39,19 +39,16 @@ const PlaceForm = ({ onSubmit, form }: IPlaceFormProps) => {
 					type="date"
 					label="Дата начала поездки"
 					{...register("trip_start_date")}
-					error={errors.trip_start_date?.message}
 				/>
 				<FormElement
 					type="date"
 					label="Дата окончания поездки"
 					{...register("trip_end_date")}
-					error={errors.trip_end_date?.message}
 				/>
 			</div>
 
 			<FormFile
 				setValue={form.setValue}
-				errors={errors}
 				name={"photos"}
 			/>
 			<Button

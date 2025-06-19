@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 import { PlaceFormData, placeSchema } from "../../utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PlaceForm from "./PlaceForm";
+import styles from "../Form/form.module.scss";
 
 const renderPlaceForm = (onSubmit = jest.fn()) => {
 	const Wrapper = () => {
@@ -19,15 +21,11 @@ const renderPlaceForm = (onSubmit = jest.fn()) => {
 				photos: [],
 			},
 		});
-		const handleSubmit =
-			onSubmit ??
-			jest.fn(() => {
-				form.formState.isSubmitting = true;
-				new Promise((resolve) => setTimeout(resolve, 100));
-				form.formState.isSubmitting = false;
-			});
 
-		return <PlaceForm form={form} onSubmit={handleSubmit} />;
+		const { handleSubmit } = form;
+		const handleFormSubmit = handleSubmit(onSubmit);
+
+		return <PlaceForm form={form} onSubmit={handleFormSubmit} />;
 	};
 	render(<Wrapper />);
 };
@@ -64,7 +62,9 @@ describe("компонент формы PlaceForm", () => {
 		});
 	});
 	it("Отправка формы", async () => {
-		const handleSubmit = jest.fn();
+		const handleSubmit = jest.fn(() => {
+			return new Promise((resolve) => setTimeout(resolve, 100));
+		});
 
 		renderPlaceForm(handleSubmit);
 
@@ -75,10 +75,45 @@ describe("компонент формы PlaceForm", () => {
 			target: { value: "Москва" },
 		});
 
-		fireEvent.submit(screen.getByTestId("place-form"));
+		const form = screen.getByTestId("place-form");
+		fireEvent.submit(form);
+
+		await waitFor(() => {
+			expect(form).toHaveClass(styles.formLoading);
+		});
 
 		await waitFor(() => {
 			expect(handleSubmit).toHaveBeenCalled();
+		});
+	});
+	it("Не должен добавлять класс loading при isSubmitting=false", () => {
+		renderPlaceForm();
+
+		const form = screen.getByTestId("place-form");
+		expect(form).not.toHaveClass(styles.formLoading);
+	});
+	it("Валидирование поля 'Название путешествия'", async () => {
+		renderPlaceForm();
+		fireEvent.input(screen.getByLabelText(/Название путешествия/i), {
+			target: { value: "М" },
+		});
+		fireEvent.blur(screen.getByLabelText(/Название путешествия/i));
+		await waitFor(() => {
+			expect(
+				screen.getByText("Название должно содержать минимум 2 символа")
+			).toBeInTheDocument();
+		});
+	});
+	it("Валидирование поля 'Город'", async () => {
+		renderPlaceForm();
+		fireEvent.input(screen.getByLabelText(/Город/i), {
+			target: { value: "М" },
+		});
+		fireEvent.blur(screen.getByLabelText(/Город/i));
+		await waitFor(() => {
+			expect(
+				screen.getByText("Название должно содержать минимум 2 символа")
+			).toBeInTheDocument();
 		});
 	});
 });
