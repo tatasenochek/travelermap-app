@@ -20,14 +20,13 @@ registerPlugin(
 
 interface FormFileProps<T extends FieldValues> {
 	setValue: UseFormSetValue<T>;
-	errors: FieldErrors<T>;
+	errors?: FieldErrors<T>;
 	name: Path<T>;
 	label?: string;
 }
 
 const FormFile = <T extends FieldValues>({
 	setValue,
-	errors,
 	name,
 	label = "Фото места (максимум 5)",
 }: FormFileProps<T>) => {
@@ -37,7 +36,7 @@ const FormFile = <T extends FieldValues>({
 	};
 
 	return (
-		<div className={styles.file}>
+		<div className={styles.file} data-testid="file-upload">
 			<label className={styles.fileLabel}>{label}</label>
 			<FilePond
 				name={name as string}
@@ -64,9 +63,6 @@ const FormFile = <T extends FieldValues>({
 				imageTransformOutputStripImageHead={true}
 				imageTransformOutputMimeType="image/webp"
 			/>
-			{errors[name] && (
-				<p className={styles.fileError}>{errors[name]?.message as string}</p>
-			)}
 		</div>
 	);
 };
