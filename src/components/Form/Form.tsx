@@ -14,7 +14,6 @@ const Form = ({ formRef, children, isLoading, ...props }: IFormProps) => {
 			ref={formRef}
 			className={clsx(styles.form, isLoading && styles.formLoading)}
 			data-testid="place-form"
-			aria-busy={isLoading}
 			{...props}
 		>
 			{children}
