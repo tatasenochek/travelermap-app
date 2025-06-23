@@ -1,9 +1,13 @@
 {
 	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"lib": ["DOM", "ESNext"],
 		"jsx": "react-jsx",
 		"esModuleInterop": true,
-		"types": ["@testing-library/jest-dom"],
+		"strict": true,
+		"types": ["vitest", "@testing-library/jest-dom"],
 		"moduleResolution": "node"
 	},
-	"include": ["src", "jest.config.ts", "vite.config.ts"]
+	"include": ["src", "vitest.config.ts", "vite.config.ts", "vitest.setup.ts"]
 }
