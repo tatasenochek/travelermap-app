@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Button from "./Button";
+import { describe, expect, it, vi } from "vitest";
 
 describe("компонент кнопки", () => {
 	it("Рендер кнопки с переданным текстом", () => {
@@ -24,7 +25,7 @@ describe("компонент кнопки", () => {
 		expect(screen.getByRole("button")).toBeDisabled();
 	});
 	it("Обработка кликов", () => {
-		const handleClick = jest.fn();
+		const handleClick = vi.fn();
 		render(<Button onClick={handleClick}>Кнопка</Button>);
 		fireEvent.click(screen.getByRole("button"));
 		expect(handleClick).toHaveBeenCalledTimes(1);

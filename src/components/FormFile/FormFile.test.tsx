@@ -1,31 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, waitFor } from "@testing-library/react";
 import FormFile from "./FormFile";
+import { describe, expect, it, vi } from "vitest";
 
-jest.mock("react-filepond", () => {
-	const originalModule = jest.requireActual("react-filepond");
+vi.mock("react-filepond", () => ({
+	FilePond: ({ onupdatefiles }: any) => {
+		setTimeout(() => {
+			const mockFiles = [
+				{ file: new File(["test"], "test.jpg", { type: "image/jpeg" }) },
+			];
+			onupdatefiles?.(mockFiles);
+		}, 0);
+		return <div data-testid="filepond-mock" />;
+	},
+	registerPlugin: vi.fn(),
+}));
 
-	return {
-		...originalModule,
-		FilePond: jest.fn(({ onupdatefiles }) => {
-			setTimeout(() => {
-				const mockFiles = [
-					{ file: new File(["test1"], "test1.jpg", { type: "image/jpeg" }) },
-				];
-				onupdatefiles(mockFiles);
-			}, 0);
-			return <div data-testid="filepond-mock" />;
-		}),
-		registerPlugin: jest.fn(),
-	};
-});
 
-jest.mock("filepond-plugin-image-preview", () => ({}));
-jest.mock("filepond-plugin-image-resize", () => ({}));
-jest.mock("filepond-plugin-image-transform", () => ({}));
+vi.mock("filepond-plugin-image-preview", () => ({
+	default: {},
+}));
+vi.mock("filepond-plugin-image-resize", () => ({
+	default: {},
+}));
+vi.mock("filepond-plugin-image-transform", () => ({
+	default: {},
+}));
 
 describe("Компонент FormFile", () => {
 	it("Установка загруженных файлов setValue", async () => {
-		const mockSetValue = jest.fn();
+		const mockSetValue = vi.fn();
 
 		render(<FormFile setValue={mockSetValue} name="photos" label="Test" />);
 

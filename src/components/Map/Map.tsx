@@ -58,37 +58,36 @@ const YandexMap = () => {
 	}
 
 	return (
-		<>
-			<Map
-				width="100%"
-				height="88vh"
-				defaultState={{ center: CENTER, zoom: ZOOM }}
-				onClick={handleClickOnMap}
+		<Map
+			data-testid="yandex-map"
+			width="100%"
+			height="88vh"
+			defaultState={{ center: CENTER, zoom: ZOOM }}
+			onClick={handleClickOnMap}
+		>
+			<Clusterer
+				options={{
+					groupByCoordinates: false,
+					clusterDisableClickZoom: true,
+				}}
 			>
-				<Clusterer
-					options={{
-						groupByCoordinates: false,
-						clusterDisableClickZoom: true,
-					}}
-				>
-					{places &&
-						places.map((place) => (
-							<Placemark
-								key={place.id}
-								geometry={place.coords}
-								options={{ preset: "islands#darkOrangeIcon" }}
-								onClick={() =>
-									navigate(`${ROUTES.PLACE}/${place.id}`, {
-										state: {
-											backgroundPath: location.pathname,
-										},
-									})
-								}
-							/>
-						))}
-				</Clusterer>
-			</Map>
-		</>
+				{places &&
+					places.map((place) => (
+						<Placemark
+							key={place.id}
+							geometry={place.coords}
+							options={{ preset: "islands#darkOrangeIcon" }}
+							onClick={() =>
+								navigate(`${ROUTES.PLACE}/${place.id}`, {
+									state: {
+										backgroundPath: location.pathname,
+									},
+								})
+							}
+						/>
+					))}
+			</Clusterer>
+		</Map>
 	);
 };
 

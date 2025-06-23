@@ -7,13 +7,17 @@ import { X } from "lucide-react";
 import { useDeletePhoto } from "../../hooks/useDeletePhoto";
 import { useGetPlaceById } from "../../hooks/useGetPlaceById";
 import { Modal } from "../Modal/Modal";
+import { handleDeletePhoto } from "./helperHandleDeletePhoto";
 
 const Gallery = () => {
 	const [isVisibleModal, setIsVisibleModal] = useState<string | null>(null);
 	const { place } = useGetPlaceById();
 	const { deletePhoto } = useDeletePhoto();
 	const { userUid } = useSelector((state: RootState) => state.auth);
-	const isOwner: boolean = useMemo(() => place?.user_id === userUid, [place, userUid]);
+	const isOwner: boolean = useMemo(
+		() => place?.user_id === userUid,
+		[place, userUid]
+	);
 
 	const imagesUrl = place?.photos.map((photo) => ({
 		id: photo.id,
@@ -24,13 +28,6 @@ const Gallery = () => {
 	}));
 
 	if (!imagesUrl?.length) return <div>Нет фотографий</div>;
-
-	const handleDeletePhoto = () => {
-		if (isVisibleModal) {
-			deletePhoto(isVisibleModal);
-			setIsVisibleModal(null);
-		}
-	};
 
 	return (
 		<>
@@ -67,7 +64,10 @@ const Gallery = () => {
 				title="Подтвердите удаление"
 				description="Вы действительно хотите удалить фото?"
 				isConfirm
-				onCloseIsConfirmed={handleDeletePhoto}
+				onCloseIsConfirmed={() => {
+					handleDeletePhoto(isVisibleModal, deletePhoto);
+					setIsVisibleModal(null);
+				}}
 			/>
 		</>
 	);

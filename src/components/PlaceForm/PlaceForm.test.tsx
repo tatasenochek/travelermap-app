@@ -5,8 +5,10 @@ import { PlaceFormData, placeSchema } from "../../utils/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PlaceForm from "./PlaceForm";
 import styles from "../Form/form.module.scss";
+import { describe, expect, it, vi } from "vitest";
 
-const renderPlaceForm = (onSubmit = jest.fn()) => {
+
+const renderPlaceForm = (onSubmit = vi.fn()) => {
 	const Wrapper = () => {
 		const form = useForm<PlaceFormData>({
 			resolver: zodResolver(placeSchema),
@@ -62,7 +64,7 @@ describe("компонент формы PlaceForm", () => {
 		});
 	});
 	it("Отправка формы", async () => {
-		const handleSubmit = jest.fn(() => {
+		const handleSubmit = vi.fn(() => {
 			return new Promise((resolve) => setTimeout(resolve, 100));
 		});
 
