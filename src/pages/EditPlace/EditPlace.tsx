@@ -3,7 +3,7 @@ import { useEditPlace } from "../../hooks/useEditPlace";
 
 const EditPlace = () => {
 	const editPlace = useEditPlace();
-	if (!editPlace) return;
+	if (!editPlace) return null;
 	const { form, onSubmit } = editPlace;
 	return (
 		<main>

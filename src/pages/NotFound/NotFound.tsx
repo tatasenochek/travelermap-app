@@ -5,13 +5,13 @@ import { ROUTES } from "../../router/ROUTES";
 
 const NotFound = () => {
 	return (
-		<>
+		<main>
 			<Header />
-			<main className={styles.main}>
+			<section className={styles.main}>
 				<p>Упс.. К сожалению, такой страницы не найдено😔</p>
 				<LinkButton to={`${ROUTES.HOME}`}>Перейти на главную</LinkButton>
-			</main>
-		</>
+			</section>
+		</main>
 	);
 };
 

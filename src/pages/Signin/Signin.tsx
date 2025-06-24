@@ -10,7 +10,7 @@ const Signin = () => {
 	const { register, onSubmit, errors, isValid, isSubmitting } = useSignin();
 
 	return (
-		<main className={styles.signin}>
+		<main className={styles.signin} data-testid="signin-page">
 			<Form onSubmit={onSubmit}>
 				<FormElement
 					label="Электронная почта"

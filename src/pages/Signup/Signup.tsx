@@ -10,7 +10,7 @@ const Signup = () => {
 	const { register, errors, onSubmit, isValid, isSubmitting } = useSignup();
 
 	return (
-		<main className={styles.signup}>
+		<main className={styles.signup} data-testid="signup-page">
 			<Form onSubmit={onSubmit}>
 				<FormElement
 					label="Имя пользователя"

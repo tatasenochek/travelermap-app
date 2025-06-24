@@ -7,8 +7,8 @@ import { getFormattedDate } from "../Place/helperGetFormatteDate";
 const PersonalAccount = () => {
 	const { userName, userUid } = useSelector((state: RootState) => state.auth);
 	const { places } = useGetAllPlaces();
-	if (!places) return;
-	if (!userUid) return;
+	if (!places) return null;
+	if (!userUid) return null;
 	const travelers = places.filter((t) => t.user_id === userUid);
 
 	return (

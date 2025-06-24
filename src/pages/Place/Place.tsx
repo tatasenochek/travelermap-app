@@ -20,9 +20,8 @@ const Place = () => {
 	const { deletePlace } = useDeletePlace();
 	const { userUid } = useSelector((state: RootState) => state.auth);
 	const isOwner: boolean = place?.user_id === userUid;
-
 	if (isLoading) {
-		return <RiseLoader size={8} color="#df7630" />;
+		return <RiseLoader size={8} color="#df7630" data-testid="place-loader" />;
 	}
 
 	if (error) {
@@ -39,7 +38,7 @@ const Place = () => {
 	};
 
 	return (
-		<div className={styles.place}>
+		<div className={styles.place} data-testid="place-page">
 			<h2 className={styles.placeTitle}>{place?.place_name}</h2>
 			<p className={styles.placeDescription}>
 				<span className={styles.placeInfo}>Город:</span>{" "}
@@ -60,7 +59,7 @@ const Place = () => {
 			)}
 			<Gallery />
 			{isOwner && (
-				<div className={styles.placeAction}>
+				<div className={styles.placeAction} data-testid="place-аction">
 					<Button
 						onClick={() =>
 							navigate(`${ROUTES.EDIT_PLACE}/${place.id}`, {
