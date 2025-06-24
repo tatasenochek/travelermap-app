@@ -106,6 +106,8 @@ export const useEditPlace = () => {
 		},
 	});
 
+		if (!place) return null;
+
 	const onSubmit = form.handleSubmit((data) => {
 		return placeMutation.mutateAsync(data);
 	});

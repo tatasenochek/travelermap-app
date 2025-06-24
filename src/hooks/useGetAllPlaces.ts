@@ -30,6 +30,8 @@ export const useGetAllPlaces = () => {
 		},
 	});
 
+	
+
 	return {
 		places: getAllPlacesQuery.data,
 		isLoading: getAllPlacesQuery.isLoading,
