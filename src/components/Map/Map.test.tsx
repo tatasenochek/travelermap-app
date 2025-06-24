@@ -2,13 +2,11 @@
 import { vi } from "vitest";
 import { geocodeMock, mockNavigate, toastMock } from "./mocks";
 
-// 🟢 Мокаем toast до всего
 vi.mock("react-hot-toast", () => ({
 	__esModule: true,
 	default: Object.assign(toastMock, { error: toastMock }),
 }));
 
-// 🟢 Мокаем react-router-dom
 vi.mock("react-router-dom", async () => {
 	const actual = await vi.importActual("react-router-dom");
 	return {
@@ -18,7 +16,6 @@ vi.mock("react-router-dom", async () => {
 	};
 });
 
-// 🟢 Мокаем react-yandex-maps
 vi.mock("@pbe/react-yandex-maps", () => ({
 	Map: ({ children, onClick }: any) => (
 		<div
@@ -35,7 +32,6 @@ vi.mock("@pbe/react-yandex-maps", () => ({
 	useYMaps: () => ({ geocode: geocodeMock }),
 }));
 
-// 🟢 Мокаем хук useGetAllPlaces
 vi.mock("../../hooks/useGetAllPlaces", () => ({
 	useGetAllPlaces: vi.fn(),
 }));
