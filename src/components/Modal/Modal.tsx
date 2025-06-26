@@ -51,7 +51,11 @@ export function Modal({
 									<DialogTitle className={styles.modalTitle}>
 										{title}
 									</DialogTitle>
-									<Button onClick={onClose} variant="iconSecondary">
+									<Button
+										onClick={onClose}
+										variant="iconSecondary"
+										aria-label="Закрыть"
+									>
 										<X />
 									</Button>
 								</header>
