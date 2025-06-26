@@ -5,11 +5,18 @@ export default defineConfig({
 	plugins: [react()],
 	test: {
 		globals: true,
-		environment: 'jsdom',
-		setupFiles: ['./vitest.setup.ts'],
+		environment: "jsdom",
+		setupFiles: ["./vitest.setup.ts"],
 		coverage: {
-			provider: 'istanbul',
-			reporter: ['text', 'json', 'html'],
+			provider: "istanbul",
+			reporter: ["text", "json", "html"],
+			exclude: [
+				"src/app/main.tsx",
+				"src/utils/**",
+				"src/db/**",
+				"src/router/**",
+				"src/store/store.ts",
+			],
 		},
 	},
-})
+});
