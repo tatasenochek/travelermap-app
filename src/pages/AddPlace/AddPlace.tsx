@@ -1,10 +1,8 @@
-import { useAddPlace } from "../../hooks/useAddPlace";
 import PlaceForm from "../../components/PlaceForm/PlaceForm";
+import { useAddPlace } from "../../features/places/hooks/useAddPlace";
 
 const AddPlace = () => {
-	const addPlace = useAddPlace();
-	if (!addPlace) return null;
-	const { form, onSubmit } = addPlace;
+	const { form, onSubmit } = useAddPlace();
 
 	return (
 		<main>
