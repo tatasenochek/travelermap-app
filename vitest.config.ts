@@ -16,6 +16,7 @@ export default defineConfig({
 				"src/db/**",
 				"src/router/**",
 				"src/store/store.ts",
+				"types.ts",
 			],
 		},
 	},
