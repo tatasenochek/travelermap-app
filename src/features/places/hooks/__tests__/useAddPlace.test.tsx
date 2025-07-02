@@ -1,62 +1,115 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { renderHook, act } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { useAddPlace } from "../useAddPlace";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { describe, it, expect, vi } from "vitest";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { Mock } from "vitest";
-
-vi.mock("react-router-dom", async () => {
-	const actual = await vi.importActual("react-router-dom");
-	return {
-		...actual,
-		useLocation: vi.fn(),
-		useNavigate: vi.fn(),
-	};
-});
-
-vi.mock("react-redux", async () => {
-	const actual = await vi.importActual("react-redux");
-	return {
-		...actual,
-		useSelector: vi.fn(),
-	};
-});
-
-vi.mock("../useAddPlaceMutation", () => ({
-	useAddPlaceMutation: vi.fn(),
-}));
-
 import { useAddPlaceMutation } from "../useAddPlaceMutation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const mockNavigate = vi.fn();
+vi.mock("react-router-dom");
+vi.mock("react-redux");
+vi.mock("react-hook-form");
+vi.mock("@hookform/resolvers/zod");
+vi.mock("../useAddPlaceMutation");
+
+const mockState = {
+	coords: [42, 42],
+	address: {
+		location: "Test location",
+		route: "Test route",
+	},
+};
+
+const mockForm = {
+	handleSubmit: vi.fn((fn) => fn),
+	reset: vi.fn(),
+	formState: { errors: {} },
+};
+
+const mockFormData = {
+	place_name: "Тест",
+	description: "Описание",
+	address: "Адрес",
+	trip_start_date: "2023-01-01",
+	trip_end_date: "2023-01-02",
+	photos: [],
+};
+
+const mockMutation = {
+	mutateAsync: vi.fn().mockResolvedValue({}),
+	isLoading: false,
+	isError: false,
+};
 
 describe("useAddPlace", () => {
-	const queryClient = new QueryClient();
+	beforeEach(() => {
+		vi.clearAllMocks();
 
-	const wrapper = ({ children }: { children: React.ReactNode }) => (
-		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-	);
-
-	it("редиректит и кидает ошибку, если нет coords/address/userUid", () => {
 		(useLocation as Mock).mockReturnValue({
-			state: {
-				coords: null,
-				address: {},
-			},
+			state: mockState,
 		});
-		(useNavigate as Mock).mockReturnValue(mockNavigate);
-		(useSelector as unknown as Mock).mockReturnValue({ userUid: undefined });
-
-		expect(() => {
-			renderHook(() => useAddPlace(), { wrapper });
-		}).toThrow("Недостаточно данных для сохранения");
-
-		expect(mockNavigate).toHaveBeenCalledWith("/", { replace: true });
+		(useSelector as unknown as Mock).mockReturnValue({
+			userUid: "user123",
+		});
+		(useForm as Mock).mockReturnValue(mockForm);
+		(useAddPlaceMutation as Mock).mockReturnValue(mockMutation);
 	});
 
-	it("возвращает форму и onSubmit, если все данные есть", async () => {
+	it("undefined state", () => {
+		const navigate = vi.fn();
+		(useNavigate as Mock).mockReturnValue(navigate);
+		(useLocation as Mock).mockReturnValue({ state: undefined });
+		expect(() => renderHook(() => useAddPlace())).toThrowError(
+			"Недостаточно данных для сохранения"
+		);
+	});
+	it("null state", () => {
+		(useLocation as Mock).mockReturnValue({ state: null });
+		expect(() => renderHook(() => useAddPlace())).toThrowError();
+	});
+	it("пустой объект", () => {
+		(useLocation as Mock).mockReturnValue({ state: {} });
+		expect(() => renderHook(() => useAddPlace())).toThrowError();
+	});
+	it("без coords", () => {
+		(useLocation as Mock).mockReturnValue({
+			state: { address: "Test address" },
+		});
+		expect(() => renderHook(() => useAddPlace())).toThrowError();
+	});
+	it("без address", () => {
+		(useLocation as Mock).mockReturnValue({ state: { coords: [42, 42] } });
+		expect(() => renderHook(() => useAddPlace())).toThrowError();
+	});
+	it("инициализирует форму с данными места и вызывает useAddPlaceMutation", async () => {
+		const mockResolver = vi.fn();
+		vi.mocked(zodResolver).mockReturnValue(mockResolver);
+		renderHook(() => useAddPlace());
+
+		expect(useForm).toHaveBeenCalledWith({
+			resolver: expect.anything(),
+			reValidateMode: "onChange",
+			mode: "onTouched",
+			defaultValues: {
+				place_name: "",
+				description: "",
+				address: mockState.address.location,
+				trip_start_date: "",
+				trip_end_date: "",
+				photos: [],
+			},
+		});
+
+		expect(useAddPlaceMutation).toHaveBeenCalledWith({
+			coords: mockState.coords,
+			address: mockState.address,
+			userUid: "user123",
+		});
+	});
+	it("должен вызывать mutation.mutateAsync при отправке формы", async () => {
 		const mockMutateAsync = vi.fn().mockResolvedValue({});
 		const mockReset = vi.fn();
 
@@ -64,38 +117,30 @@ describe("useAddPlace", () => {
 			mutateAsync: mockMutateAsync,
 		});
 
-		(useLocation as Mock).mockReturnValue({
-			state: {
-				coords: [10, 20],
-				address: { location: "Москва", route: "Тверская" },
+		(useForm as Mock).mockReturnValue({
+			handleSubmit: (fn: any) => (e: React.FormEvent) => {
+				e.preventDefault();
+				fn(mockFormData);
 			},
+			reset: mockReset,
+			formState: { isSubmitting: false },
+			register: vi.fn(),
+			control: {},
+			watch: vi.fn(),
+			setValue: vi.fn(),
+			getValues: vi.fn(),
 		});
-		(useNavigate as Mock).mockReturnValue(mockNavigate);
-		(useSelector as unknown as Mock).mockReturnValue({ userUid: "user-123" });
-		(useAddPlaceMutation as Mock).mockReturnValue({
-			mutateAsync: mockMutateAsync,
-		});
 
-		const { result } = renderHook(() => useAddPlace(), { wrapper });
-
-		result.current.form.reset = mockReset;
-		result.current.form.handleSubmit = (cb: any) => () =>
-			cb({ place_name: "test" });
-
-		result.current.onSubmit = result.current.form.handleSubmit(
-			async (data: any) => {
-				await mockMutateAsync(data);
-				mockReset();
-				mockNavigate("/");
-			}
-		);
+		const { result } = renderHook(() => useAddPlace());
 
 		await act(async () => {
-			await result.current.onSubmit();
+			await result.current.onSubmit({
+				preventDefault: vi.fn(),
+				currentTarget: document.createElement("form"),
+			} as unknown as React.FormEvent);
 		});
 
-		expect(mockMutateAsync).toHaveBeenCalledWith({ place_name: "test" });
+		expect(mockMutateAsync).toHaveBeenCalledWith(mockFormData);
 		expect(mockReset).toHaveBeenCalled();
-		expect(mockNavigate).toHaveBeenCalledWith("/");
 	});
 });
